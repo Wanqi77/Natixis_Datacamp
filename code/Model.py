@@ -65,7 +65,17 @@ class Decoder_Classif(nn.Module):
                 torch.nn.Linear(hidden_size, 1),
             )
         self.sigmoid = torch.nn.Sigmoid()
-        #self.init_weights()
+        self.init_weights()
+    
+    def init_weights(self):
+        """
+        Initializes some parameters with values from the uniform distribution, for easier convergence.
+        """
+
+        self.encoder.weight.data.uniform_(-1, 1)
+        self.network[1].weight.data.uniform_(-1, 1)
+        self.network[3].weight.data.uniform_(-1, 1)
+
 
     def forward(self, input, stock_price):
         """
